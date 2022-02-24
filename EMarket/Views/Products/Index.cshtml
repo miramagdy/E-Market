@@ -1,0 +1,93 @@
+﻿@model IEnumerable<EMarket.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Index</h2>
+
+@*<p>
+    Html.ActionLink("Create New", "Create")
+</p>
+    *@
+@using (@Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <div style="margin-top: 50px; ">
+        Search By Category Name: @Html.TextBox("search") <input type="submit" value="Search" />
+        <a class="btn btn-success" href="/Products/Create" style="margin-left:1000px; margin-bottom:20px;">ADD PRODUCT</a>
+    </div>
+}
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-2 col-md-3  col-xs-6">
+                <div class="card">
+                    <img class="card-img-top" width="100px" height="100px" src="@Url.Content(item.Image)" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title"><strong>@item.Name</strong></h4>
+                        <p class="card-text">
+                            @if (item.Description != null && item.Description.Length > 50)
+                            {
+                                @item.Description.Substring(0, 50) <spn>...</spn>
+                            }
+                            else
+                            {
+                                @item.Description;
+                            }
+                        </p>
+                        <a href="/Products/AddToCart/@item.Id" class="btn btn-primary" style="width : 100%">Add to cart</a><br /> <br />
+
+    
+                        <a href="@Url.Action("Edit" ,  new { id=item.Id  } )" class="btn btn-primary" style="width : 30%"><i class="fas fa-edit"></i></a>
+                        <a href="@Url.Action("Details" ,  new { id=item.Id })" class="btn btn-warning" style="width : 30%"><i class="fas fa-pen-alt"></i></a>
+                        <a href="/products/Delete/@item.Id" class="btn btn-danger" style="width : 30%"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*
+        <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:bisque; text-align:center;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-family:'Times New Roman', Times, serif; font-size:x-large;"> CART LIST </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-10">
+
+                            @foreach (var item in Model.cart)
+                            {
+
+                                <div class="list-group-item clearfix" style="margin-left:75px;margin-bottom:10px;">
+                                    <div class="pull-right">
+                                        @Html.DisplayFor(modelItem => item.product.name)
+                                        @Html.DisplayFor(model => item.product.price)
+                                        @Html.DisplayFor(model => item.added_at)
+
+
+
+                                    </div>
+                                    <span class="pull-left">
+                                        <a href="/Product/DeleteCart/@item.product_id" class="pt-2 btn btn-primary "> REMOVE </a>
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color:bisque;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+*@

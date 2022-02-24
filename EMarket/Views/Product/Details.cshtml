@@ -1,0 +1,43 @@
+﻿@model emarket.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="margin-top:50px;">Details</h2>
+
+
+<div>
+    <dl class="dl-horizontal" style="text-align:center">
+
+        <div style="background-color:lightblue;margin-left:480px;margin-right:270px;height:30px; text-align:center ; ">
+
+            <text style="font-weight:bold;"> @Html.DisplayFor(model => model.name)</text>
+            <text style="font-weight:bold;"> - @Html.DisplayFor(model => model.price) EGP-</text>
+            <text style="font-weight:bold;">(@Html.DisplayFor(model => model.category.name))</text>
+
+
+        </div>
+        <dd>
+
+            <a href="#" class="product-list-img">
+                <img src="@Url.Content(Model.image)" alt="" height="200" width="200" style="width:auto;">
+            </a>
+
+
+        </dd>
+        <dd class="text-info" style="word-wrap: break-word;">
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        <dd style="margin-left:200px;">
+            <a href="/Product/Edit/@Model.id" class="btn btn-success" style="width:150px">UPDATE</a>
+            <a href="/Product/Delete/@Model.id" class="btn btn-danger" style="        width: 150px
+">DELETE</a>
+        </dd>
+    </dl>
+</div>
+<p style="margin-bottom:20px;">
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>

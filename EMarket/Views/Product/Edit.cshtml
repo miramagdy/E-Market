@@ -1,0 +1,92 @@
+﻿@model emarket.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <style>
+        textarea{
+        width:280px;
+        height:50px;
+        border-radius: 3px;
+    }
+    select{
+        width:280px;
+        height:30px;
+    }
+    input{
+    max-width: 280px;
+    width: 200px;
+    height: 33px;
+    }
+    .form-control {
+        width: 300px;
+    }
+    </style>
+<h2 style="text-align:center; margin-top: 70px;">UPDATE PRODUCT</h2>
+
+
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    <div class="form-group" style="margin-left: 5px;">
+        
+            @Html.LabelFor(model => model.image, "Image", htmlAttributes: new { @class = "control-label col-md-2" })
+            <input type="file" name="Imagefile" class="form-control"/>
+            @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+        
+    </div>
+   <div class="form-group">
+        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.category, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("category_id", null, "", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+       
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="UPDATE" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div style="margin-bottom:20px">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

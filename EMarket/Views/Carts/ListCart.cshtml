@@ -1,0 +1,131 @@
+﻿@model IEnumerable<EMarket.Models.Cart>
+
+@{
+    ViewBag.Title = "ListCart";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-10">
+        @foreach (var item in Model)
+        {
+
+            <div class="list-group-item clearfix" style="margin-bottom:10px; margin-right:-100px;">
+
+                <div class="pull-right" style="padding-left:70px;">
+
+
+                    <strong>@Html.DisplayFor(modelitem => item.product.Name) -</strong>
+
+                    <strong> @Html.DisplayFor(modelitem => item.product.Price)EGP-</strong>
+
+                    @{
+                        TimeSpan ts = DateTime.Now - item.added_at;
+
+                        //seconds ago
+                        if (ts.TotalMinutes < 1)
+                        {
+
+                            @Html.Label("just now")
+                        }
+                        //min ago
+                        else if (ts.TotalHours < 1)
+                        {
+                            if ((int)ts.TotalMinutes == 1)
+                            {
+                                @Html.Label("Added to Cart a Minute ago")
+                            }
+                            else
+                            {
+                                @Html.Label("Added to Cart " + (int)ts.TotalMinutes + " Minutes ago")
+                            }
+
+                        }
+                        //hours ago
+                        else if (ts.TotalDays < 1)
+                        {
+                            if ((int)ts.TotalHours == 1)
+                            {
+                                @Html.Label("Added to Cart an Hour ago")
+
+                            }
+                            else
+                            {
+                                @Html.Label("Added to Cart " + (int)ts.TotalHours + " Hours ago")
+                            }
+                        }
+                        //days ago
+                        else if (ts.TotalDays < 7)
+                        {
+                            if ((int)ts.TotalDays == 1)
+                            {
+                                @Html.Label("Added to Cart a Day ago")
+                            }
+                            else
+                            {
+                                @Html.Label("Added to Cart " + (int)ts.TotalHours + " Days ago")
+                            }
+
+                        }
+                        //weeks ago
+                        else if (ts.TotalDays < 30.4368)
+                        {
+                            if ((int)(ts.TotalDays / 7) == 1)
+                            {
+                                @Html.Label("Added to Cart a Week ago")
+                            }
+                            else
+                            {
+                                @Html.Label("Added to Cart " + (int)(ts.TotalDays / 7) + " Weeks ago")
+                            }
+                        }
+                        //months ago
+                        else if (ts.TotalDays < 365.242)
+                        {
+                            if ((int)(ts.TotalDays / 30.4368) == 1)
+                            {
+                                @Html.Label("Added to Cart a Month ago")
+                            }
+                            else
+                            {
+                                @Html.Label("Added to Cart " + (int)(ts.TotalDays / 30.4368) + " Months ago")
+                            }
+                        }
+
+                        //years ago
+                        else
+                        {
+                            if ((int)(ts.TotalDays / 365.242) == 1)
+                            {
+                                @Html.Label("Added to Cart a Year ago")
+                            }
+                            else
+                            {
+                                @Html.Label("Added to Cart " + (int)(ts.TotalDays / 365.242) + " Years ago")
+                            }
+                        }
+                    }
+                </div>
+
+                <span class="pull-left">
+                    @using (Html.BeginForm("DeleteCart", "Carts", FormMethod.Post))
+                    {
+                        @Html.Hidden("id", item.id)
+                        <button type="submit" class="btn btn-danger btn-sm" style="margin-left:5px;">Remove</button>
+                    }
+                </span>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
